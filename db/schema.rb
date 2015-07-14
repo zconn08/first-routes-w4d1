@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150713214051) do
+ActiveRecord::Schema.define(version: 20150714005429) do
+
+  create_table "comments", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
 
   create_table "contact_shares", force: :cascade do |t|
     t.integer  "contact_id", null: false
@@ -32,6 +40,30 @@ ActiveRecord::Schema.define(version: 20150713214051) do
   end
 
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id"
+
+  create_table "favorited_contacts", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "contact_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "favorited_contacts", ["contact_id"], name: "index_favorited_contacts_on_contact_id"
+  add_index "favorited_contacts", ["user_id"], name: "index_favorited_contacts_on_user_id"
+
+  create_table "group_memberships", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "group_id",   null: false
+    t.integer  "contact_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "username",   null: false

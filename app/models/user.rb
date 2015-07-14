@@ -7,4 +7,10 @@ class User < ActiveRecord::Base
 
   has_many :shared_contacts, through: :contact_shares, source: :contact
 
+  has_many :comments, as: :commentable
+
+  has_many :favorite_contacts, through: :favorited_contacts, source: :contact
+
+  has_many :favorited_contacts
+
 end

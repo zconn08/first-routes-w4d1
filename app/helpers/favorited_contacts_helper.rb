@@ -1,0 +1,2 @@
+module FavoritedContactsHelper
+end
